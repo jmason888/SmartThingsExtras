@@ -16,11 +16,13 @@ metadata {
 	definition (name: "Simulated Switch and Contact Sensor", namespace: "jmason888", author: "James Mason", cstHandler: true) {
 		capability "Contact Sensor"
 		capability "Switch"
+        capability "Sensor"
+        capability "Actuator"        
 	}
 
 
 	simulator {
-		// TODO: define status and reply messages here
+		//  no physical device to simulate
 	}
 
 	tiles(scale: 2) {
@@ -36,7 +38,7 @@ metadata {
         	state "closed", label: "Closed", icon: "st.contact.contact.closed",     backgroundColor: "#79b821" // was "#00a0dc"
 			state "open",   label: "Open",   icon: "st.contact.contact.open",       backgroundColor: "#e86d13"
 		}
-    	// some text tile "Device is for sync only; should not be manually pressed"
+    	// TODO: some text tile "Device is for sync only; should not be manually pressed"
         main('contact_RO')
         details('contact_garage', 'switch_RO')
 	}
@@ -45,22 +47,21 @@ metadata {
 // parse events into attributes
 def parse(String description) {
 	log.debug "Parsing '${description}'"
-	// TODO: handle 'contact' attribute
-	// TODO: handle 'switch' attribute
-
+	// no physical device to send raw events
 }
+
 
 // handle commands
 
 def on() {
 	log.debug "Turning Switch and Sensor On"
-	sendEvent(name: "switch", value: "on", isStateChange: true, display: true, displayed: true)
+	sendEvent(name: "switch", value:  "on",   isStateChange: true, display: true, displayed: true)
 	sendEvent(name: "contact", value: "open", isStateChange: true, display: true, displayed: true)
 }
 
 def off() {
 	log.debug "Turning Switch and Sensor Off"
-    sendEvent(name: "switch", value: "off", isStateChange: true, display: true, displayed: true)
+    sendEvent(name: "switch",  value: "off",    isStateChange: true, display: true, displayed: true)
     sendEvent(name: "contact", value: "closed", isStateChange: true, display: true, displayed: true)
 }
 
